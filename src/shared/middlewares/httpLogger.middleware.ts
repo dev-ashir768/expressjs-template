@@ -12,7 +12,7 @@ const options: Options = {
       return "warn";
     } else if (res.statusCode >= 500 || err) {
       return "error";
-    } else if (res.statusCode >= 300 && res.statusCode < 400) {
+    } else if (res.statusCode >= 200 && res.statusCode < 400) {
       return "info";
     }
     return "info";

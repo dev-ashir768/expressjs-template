@@ -17,6 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(envConfig.API_PREFIX, apiRoutes);
 
+
 app.use(notFound);
 app.use(globalErrorMiddleware);
 export default app;

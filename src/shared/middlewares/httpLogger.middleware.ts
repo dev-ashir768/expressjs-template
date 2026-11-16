@@ -7,7 +7,7 @@ const options: Options = {
     req: (req) => ({ id: req.id, method: req.method, url: req.url }),
     res: (res) => ({ statusCode: res.statusCode }),
   },
-  customLogLevel: (_req, res, err) => {
+  customLogLevel: (_req, res, err?: Error) => {
     if (res.statusCode >= 400 && res.statusCode < 500) {
       return "warn";
     } else if (res.statusCode >= 500 || err) {

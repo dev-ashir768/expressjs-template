@@ -1,30 +1,28 @@
 import app from "@/app";
+import { type Server } from "node:http";
 import envConfig from "./config/env.config";
 import logger from "./shared/utils/logger";
-import { type Server } from "node:http";
 
-const { PORT } = envConfig;
 let server: Server;
+const { PORT } = envConfig;
 
 process.on("uncaughtException", (err: Error) => {
-  logger.error({ err }, "UNCAUGHT EXCEPTION! Closing HTTP server...");
+  logger.error({ err }, "UNCAUGHT EXCEPTION! Shutting down...");
   process.exit(1);
 });
 
 const startServer = () => {
   server = app.listen(PORT, () => {
-    logger.info(`Server is running on http://localhost:${envConfig.PORT}`);
+    logger.info(`Server is running on http://localhost:${PORT}`);
   });
 };
 
-const graefulShutdown = (signal: string, exitCode = 0) => {
-  logger.info(`${signal} signal received: Closing HTTP server...`);
+const gracefulShutdown = (signal: string, exitCode: number = 0) => {
+  logger.info(`${signal} signal received: Shutting down...`);
 
   const forceExitTimer = setTimeout(() => {
-    logger.error(
-      "Could not close connections in time, forcefully shutting down",
-    );
-    process.exit(exitCode);
+    logger.info("Could not close connections in time, forcefully shutting down...")
+     process.exit(exitCode);
   }, 10000);
 
   forceExitTimer.unref();
@@ -32,11 +30,10 @@ const graefulShutdown = (signal: string, exitCode = 0) => {
   if (server) {
     server.close((err) => {
       if (err) {
-        logger.error({ err }, "Error occurred while closing HTTP server");
-        process.exit(exitCode);
+        logger.error({ err }, "Error while shutting down...");
+        process.exit(1);
       }
-
-      logger.info("HTTP server closed successfully. Process terminating...");
+      logger.info("Shutting down...");
       process.exit(exitCode);
     });
   } else {
@@ -45,11 +42,11 @@ const graefulShutdown = (signal: string, exitCode = 0) => {
 };
 
 process.on("unhandledRejection", (reason: unknown) => {
-  logger.error({ err: reason }, "UNHANDLED REJECTION! Closing HTTP server...");
-  graefulShutdown("unhandledRejection", 1);
+  logger.error({ err: reason }, "UNHANDLED REJECTION! Shutting down...");
+  gracefulShutdown("unhandledRejection", 1);
 });
 
-process.on("SIGINT", () => graefulShutdown("SIGINT", 0));
-process.on("SIGTERM", () => graefulShutdown("SIGTERM", 0));
+process.on("SIGINT", () => gracefulShutdown("SIGINT", 0));
+process.on("SIGTERM", () => gracefulShutdown("SIGTERM", 0));
 
 startServer();

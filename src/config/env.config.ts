@@ -69,7 +69,7 @@ if (!result.success) {
   process.exit(1);
 }
 
-const envConfig: EnvSchemaInput = result.data;
+const envConfig: EnvSchemaInput = Object.freeze(result.data);
 logger.info("Environment Variables Loaded Successfully!");
 
 export default envConfig;

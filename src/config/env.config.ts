@@ -65,7 +65,7 @@ if (!result.success) {
 
   logger.error(`Invalid Environment Variable${errorCount > 1 ? "s" : ""}!`);
   logger.error(errorMessage);
-  logger.error("Application startup aborted. Exiting with code 1.");
+  logger.error("HTTP server closed successfully. Process terminating...");
   process.exit(1);
 }
 

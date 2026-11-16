@@ -5,6 +5,7 @@ import envConfig from "./env.config";
 
 const adapter = new PrismaMariaDb({
   host: envConfig.DATABASE_HOST,
+  port: envConfig.DATABASE_PORT,
   user: envConfig.DATABASE_USER,
   password: envConfig.DATABASE_PASSWORD,
   database: envConfig.DATABASE_NAME,

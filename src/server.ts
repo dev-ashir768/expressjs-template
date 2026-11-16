@@ -28,40 +28,40 @@ const startServer = async () => {
   }
 };
 
-const gracefulShutdown = async (signal: string, exitCode: number = 0) => {
-  logger.info(`${signal} signal received: Initiating graceful shutdown...`);
+// const gracefulShutdown = async (signal: string, exitCode: number = 0) => {
+//   logger.info(`${signal} signal received: Initiating graceful shutdown...`);
 
-  const forceExitTimer = setTimeout(() => {
-    logger.info(
-      "Could not close connections in time, forcefully shutting down...",
-    );
-    process.exit(exitCode);
-  }, 10000);
+//   const forceExitTimer = setTimeout(() => {
+//     logger.info(
+//       "Could not close connections in time, forcefully shutting down...",
+//     );
+//     process.exit(exitCode);
+//   }, 10000);
 
-  forceExitTimer.unref();
+//   forceExitTimer.unref();
 
-  if (server) {
-    server.close(async (err) => {
-      if (err) {
-        logger.error({ err }, "Error while closing HTTP server");
-        process.exit(1);
-      }
-      await prisma.$disconnect();
-      logger.info("HTTP server closed successfully. Exiting process.");
-      process.exit(exitCode);
-    });
-  } else {
-    await prisma.$disconnect();
-    process.exit(exitCode);
-  }
-};
+//   if (server) {
+//     server.close(async (err) => {
+//       if (err) {
+//         logger.error({ err }, "Error while closing HTTP server");
+//         process.exit(1);
+//       }
+//       await prisma.$disconnect();
+//       logger.info("HTTP server closed successfully. Exiting process.");
+//       process.exit(exitCode);
+//     });
+//   } else {
+//     await prisma.$disconnect();
+//     process.exit(exitCode);
+//   }
+// };
 
-process.on("unhandledRejection", (reason: unknown) => {
-  logger.error({ err: reason }, "UNHANDLED REJECTION! Shutting down...");
-  gracefulShutdown("unhandledRejection", 1);
-});
+// process.on("unhandledRejection", (reason: unknown) => {
+//   logger.error({ err: reason }, "UNHANDLED REJECTION! Shutting down...");
+//   gracefulShutdown("unhandledRejection", 1);
+// });
 
-process.on("SIGINT", () => gracefulShutdown("SIGINT", 0));
-process.on("SIGTERM", () => gracefulShutdown("SIGTERM", 0));
+// process.on("SIGINT", () => gracefulShutdown("SIGINT", 0));
+// process.on("SIGTERM", () => gracefulShutdown("SIGTERM", 0));
 
 startServer();

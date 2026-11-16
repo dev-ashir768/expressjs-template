@@ -15,6 +15,8 @@ process.on("uncaughtException", (err: Error) => {
 const startServer = async () => {
   try {
     await prisma.$connect();
+    await prisma.$queryRaw`SELECT 1`;
+
     logger.info("Database connected successfully!");
 
     server = app.listen(PORT, () => {

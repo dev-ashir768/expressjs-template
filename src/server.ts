@@ -18,11 +18,13 @@ const startServer = () => {
 };
 
 const gracefulShutdown = (signal: string, exitCode: number = 0) => {
-  logger.info(`${signal} signal received: Shutting down...`);
+  logger.info(`${signal} signal received: Initiating graceful shutdown...`);
 
   const forceExitTimer = setTimeout(() => {
-    logger.info("Could not close connections in time, forcefully shutting down...")
-     process.exit(exitCode);
+    logger.info(
+      "Could not close connections in time, forcefully shutting down...",
+    );
+    process.exit(exitCode);
   }, 10000);
 
   forceExitTimer.unref();
@@ -30,10 +32,10 @@ const gracefulShutdown = (signal: string, exitCode: number = 0) => {
   if (server) {
     server.close((err) => {
       if (err) {
-        logger.error({ err }, "Error while shutting down...");
+        logger.error({ err }, "Error while closing HTTP server");
         process.exit(1);
       }
-      logger.info("Shutting down...");
+      logger.info("HTTP server closed successfully. Exiting process.");
       process.exit(exitCode);
     });
   } else {

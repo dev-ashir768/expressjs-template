@@ -4,6 +4,6 @@ import userRouter from "@/modules/users/user.routes";
 
 const router = Router();
 
-router.use(envConfig.API_VERSION + "/users", userRouter);
+router.use("/" + envConfig.API_VERSION + "/users", userRouter);
 
 export default router;

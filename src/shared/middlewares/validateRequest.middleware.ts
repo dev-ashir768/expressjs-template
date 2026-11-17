@@ -8,7 +8,7 @@ const validateRequestMiddleware = (schema: ZodType, source: VALIDATION_SOURCE) =
         const result = schema.safeParse(req[source]);
 
         if (!result.success) {
-            return next(createHttpError(400, "Vaalidation Error", {
+            return next(createHttpError(400, "Validation Error", {
                 errors: result.error.issues.map((issue) => ({
                     path: issue.path.join("."),
                     message: issue.message

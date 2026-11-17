@@ -5,14 +5,10 @@ import createHttpError from "http-errors";
 
 const userService = {
     createUser: async (input: CreateUserInput) => {
-        const hashedPassword = await hashPassword(input.password);
-
         const existingUser = await userRepository.findUserByEmail({ email: input.email });
+        if (existingUser) throw createHttpError(409, "User already exists");
 
-        if (existingUser) {
-            createHttpError(404, "User already exists");
-        }
-
+        const hashedPassword = await hashPassword(input.password);
         return userRepository.createUser({
             name: input.name,
             email: input.email,

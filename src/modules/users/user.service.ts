@@ -9,6 +9,7 @@ const userService = {
         if (existingUser) throw createHttpError(409, "User already exists");
 
         const hashedPassword = await hashPassword(input.password);
+        
         return userRepository.createUser({
             name: input.name,
             email: input.email,

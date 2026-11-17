@@ -1,7 +1,7 @@
-export type SuccessApiResponse<T> = {
+export type SuccessResponse<T> = {
     success: boolean;
     message: string;
-    data: T;
+    data: T | null;
 }
 
 // export type ErrorApiResponse<T> = {

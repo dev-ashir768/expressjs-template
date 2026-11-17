@@ -13,7 +13,7 @@ const validateRequestMiddleware = (schema: ZodType, source: VALIDATION_SOURCE) =
                     path: issue.path.join("."),
                     message: issue.message
                 }))
-            }, { stack: result.error.stack }))
+            }))
         }
 
         if (source === VALIDATION_SOURCE.BODY) {

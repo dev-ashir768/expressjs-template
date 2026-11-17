@@ -21,7 +21,7 @@ const userRepository = {
     },
     findUserByEmail: (data: { email: string }) => {
         return prisma.user.findUnique({
-            where: { email: data.email },
+            where: { email: data.email, isDeleted: false },
             select: userPublicSelect,
         })
     }

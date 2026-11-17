@@ -19,6 +19,7 @@ const globalErrorMiddleware = (
   return res.status(statusCode).json({
     success: false,
     message: errorMessage,
+    data: null,
     ...(err.errors && { errors: err.errors }),
     ...(isDevelopment && { stack: err.stack }),
   });

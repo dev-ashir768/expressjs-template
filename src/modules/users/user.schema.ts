@@ -9,5 +9,6 @@ const userSchema = {
 }
 
 
-export type UserSchemaType = z.infer<typeof userSchema>;
+export type CreateUserInput = z.infer<typeof userSchema.createUser>;
 
+export default userSchema;

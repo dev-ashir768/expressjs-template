@@ -6,7 +6,7 @@ import notFound from "./shared/utils/notfound";
 import apiRoutes from "@/router/index";
 import envConfig from "./config/env.config";
 import globalErrorMiddleware from "./shared/middlewares/globalError.middleware";
-import healthCheck from "./shared/utils/healthcheck";
+import healthCheck from "./shared/utils/healthCheck";
 
 const app: Application = express();
 

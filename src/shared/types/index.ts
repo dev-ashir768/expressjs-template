@@ -1,13 +1,20 @@
-export type SuccessResponse<T> = {
+type ValidationErrorItem = {
+    path: string;
+    message: string;
+}
+
+type SuccessResponse<T> = {
     success: boolean;
     message: string;
     data: T | null;
 }
 
-// export type ErrorApiResponse<T> = {
-//     success: boolean;
-//     message: string;
-//     data: T;
-//     errors?: Record<string, string[]>;
-//     stack?: string;
-// }
+type ErrorResponse = {
+    success: boolean;
+    message: string;
+    data: null;
+    errors?: ValidationErrorItem[];
+    stack?: string;
+}
+
+export type { ValidationErrorItem, SuccessResponse, ErrorResponse };

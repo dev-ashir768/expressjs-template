@@ -1,6 +1,7 @@
 import envConfig from "@/config/env.config";
 import type { NextFunction, Response, Request } from "express";
 import type { HttpError } from "http-errors";
+import type { ErrorResponse } from "../types";
 
 const globalErrorMiddleware = (
   err: HttpError,
@@ -16,13 +17,16 @@ const globalErrorMiddleware = (
       ? "Internal Server Error"
       : err.message || "Something went wrong";
 
-  return res.status(statusCode).json({
+  const response: ErrorResponse = {
     success: false,
     message: errorMessage,
     data: null,
-    ...(err.errors && { errors: err.errors }),
-    ...(isDevelopment && { stack: err.stack }),
-  });
+  }
+
+  if (err) response.errors = err.errors;
+  if (isDevelopment && err.stack) response.stack = err.stack;
+
+  return res.status(statusCode).json(response);
 };
 
 export default globalErrorMiddleware;

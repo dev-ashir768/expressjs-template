@@ -20,7 +20,7 @@ const userRepository = {
         });
     },
     findUserByEmail: (data: { email: string }) => {
-        return prisma.user.findUnique({
+        return prisma.user.findFirst({
             where: { email: data.email, isDeleted: false },
             select: userPublicSelect,
         })

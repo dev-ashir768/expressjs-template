@@ -2,7 +2,7 @@ import prisma from "@/config/db.config";
 import type { Prisma } from "@/generated/prisma/client";
 import type { CreateUserData } from "@/modules/users/user.types";
 
-const userPublicSelect = {
+export const userPublicSelect = {
     id: true,
     name: true,
     email: true,
@@ -22,6 +22,12 @@ const userRepository = {
     findUserByEmail: (data: { email: string }) => {
         return prisma.user.findFirst({
             where: { email: data.email, isDeleted: false },
+            select: userPublicSelect,
+        })
+    },
+    findUserById: (data: { id: number }) => {
+        return prisma.user.findFirst({
+            where: { id: data.id, isDeleted: false },
             select: userPublicSelect,
         })
     }

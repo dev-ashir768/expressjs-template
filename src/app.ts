@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(envConfig.API_PREFIX, apiRoutes);
 
-app.use(healthCheck);
+app.use("/health", healthCheck);
 app.use(notFound);
 app.use(globalErrorMiddleware);
 export default app;

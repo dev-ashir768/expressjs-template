@@ -21,7 +21,7 @@ const generateAccessToken = (userId: string, email: string, sessionId: string): 
   return jwt.sign(payload, envConfig.JWT_ACCESS_SECRET, options);
 };
 
-const generateRefreshToken = (userId: string, sessionId: string) => {
+const generateRefreshToken = (userId: string, sessionId: string): string => {
   const payload: JwtRefreshTokenPayload = {
     sub: userId,
     jti: randomUUID(),

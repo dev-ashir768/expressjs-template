@@ -7,8 +7,13 @@ import apiRoutes from "@/router/index";
 import envConfig from "@/config/env.config";
 import errorMiddleware from "./shared/middlewares/error.middleware";
 import healthCheck from "@/shared/utils/healthcheck";
+import { isDevelopment } from "./shared/constants";
 
 const app: Application = express();
+
+if (!isDevelopment) {
+  app.set("trust proxy", 1);
+}
 
 app.use(httpLoggerMiddleware());
 app.use(helmet());

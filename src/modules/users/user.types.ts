@@ -1,4 +1,4 @@
-import type { Prisma } from "@/generated/prisma/client";
+import type { Prisma } from "@prisma/client";
 import type { userPublicSelect } from "./user.repository";
 
 type CreateUserData = Pick<Prisma.UserCreateInput, "name" | "email" | "hashedPassword">;

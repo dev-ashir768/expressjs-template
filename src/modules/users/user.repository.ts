@@ -1,5 +1,5 @@
 import prisma from "@/config/db.config";
-import type { Prisma } from "@/generated/prisma/client";
+import type { Prisma } from "@prisma/client";
 import type { CreateUserData } from "@/modules/users/user.types";
 
 export const userPublicSelect = {

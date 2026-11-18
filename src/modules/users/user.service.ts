@@ -2,7 +2,7 @@ import { hashPassword } from "@/shared/utils/password";
 import type { CreateUserInput } from "./user.schema";
 import userRepository from "./user.repository";
 import createHttpError from "http-errors";
-import { Prisma } from "@/generated/prisma/client";
+import { Prisma } from "@prisma/client";
 import type { UserPublic } from "./user.types";
 
 const userService = {

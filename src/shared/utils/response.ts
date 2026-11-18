@@ -4,7 +4,7 @@ import type {
   SuccessResponse,
   ValidationErrorItem,
 } from "../types";
-import envConfig from "@/config/env.config";
+import { isDevelopment } from "../constants";
 
 const successResponse = <T>(
   res: Response,
@@ -28,7 +28,6 @@ const errorResponse = (
   errors?: ValidationErrorItem[],
   stack?: string,
 ) => {
-  const isDevelopment = envConfig.NODE_ENV !== "production";
   const response: ErrorResponse = {
     success: false,
     message,

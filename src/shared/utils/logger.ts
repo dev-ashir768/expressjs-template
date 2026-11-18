@@ -1,7 +1,6 @@
 import "dotenv/config";
 import pino, { stdTimeFunctions, type LoggerOptions } from "pino";
-
-const isDevelopment = process.env.NODE_ENV !== "production";
+import { isDevelopment } from "../constants";
 
 const options: LoggerOptions = {
   level: isDevelopment ? "debug" : "info",

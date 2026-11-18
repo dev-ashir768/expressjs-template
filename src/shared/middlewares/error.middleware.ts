@@ -1,7 +1,7 @@
-import envConfig from "@/config/env.config";
 import type { NextFunction, Response, Request } from "express";
 import type { HttpError } from "http-errors";
 import { errorResponse } from "../utils/response";
+import { isDevelopment } from "../constants";
 
 const errorMiddleware = (
   err: HttpError,
@@ -9,7 +9,6 @@ const errorMiddleware = (
   res: Response,
   _next: NextFunction,
 ) => {
-  const isDevelopment = envConfig.NODE_ENV !== "production";
   const statusCode =
     err.status || err.statusCode || (err.name === "ZodError" ? 400 : 500);
   const errorMessage =

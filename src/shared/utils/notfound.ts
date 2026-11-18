@@ -1,14 +1,8 @@
 import type { Request, Response } from "express";
-import type { ErrorResponse } from "../types";
+import { errorResponse } from "./response";
 
 const notFound = (req: Request, res: Response) => {
-  const response: ErrorResponse = {
-    success: false,
-    message: `${req.method} ${req.originalUrl} not found`,
-    data: null,
-  }
-
-  return res.status(404).json(response);
+  return errorResponse(res, 404, `${req.method} ${req.originalUrl} not found`);
 };
 
 export default notFound;

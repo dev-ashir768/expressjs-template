@@ -1,9 +1,8 @@
 import type { Request, Response } from "express";
+import { successResponse } from "./response";
 
 const healthCheck = async (_req: Request, res: Response) => {
-  return res.status(200).json({
-    success: true,
-    message: "Server is healthy and running",
+  return successResponse(res, 200, "Server is healthy and running", {
     timestamp: new Date().toISOString(),
     uptime: `${Math.floor(process.uptime())}s`,
   });

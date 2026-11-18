@@ -3,7 +3,7 @@ import type { NextFunction, Response, Request } from "express";
 import type { HttpError } from "http-errors";
 import { errorResponse } from "../utils/response";
 
-const globalErrorMiddleware = (
+const errorMiddleware = (
   err: HttpError,
   _req: Request,
   res: Response,
@@ -20,4 +20,4 @@ const globalErrorMiddleware = (
   return errorResponse(res, statusCode, errorMessage, err.errors, err.stack);
 };
 
-export default globalErrorMiddleware;
+export default errorMiddleware;

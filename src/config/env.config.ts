@@ -51,6 +51,22 @@ const envSchema = z.object({
     .number({ message: "Database Connection Limit is required" })
     .min(1, { message: "Database Connection Limit must be greater than 0" })
     .int({ message: "Database Connection Limit must be positive integer" }),
+  JWT_ACCESS_SECRET: z
+    .string({ message: "JWT Access Secret is required" })
+    .min(1, { message: "JWT Access Secret is required" })
+    .trim(),
+  JWT_REFRESH_SECRET: z
+    .string({ message: "JWT Refresh Secret is required" })
+    .min(1, { message: "JWT Refresh Secret is required" })
+    .trim(),
+  JWT_ACCESS_EXPIRES: z
+    .string({ message: "JWT Refresh Expires is required" })
+    .min(1, { message: "JWT Refresh Expires is required" })
+    .trim(),
+  JWT_REFRESH_EXPIRES: z
+    .string({ message: "JWT Refresh Expires is required" })
+    .min(1, { message: "JWT Refresh Expires is required" })
+    .trim(),
 });
 
 export type EnvSchemaInput = z.infer<typeof envSchema>;

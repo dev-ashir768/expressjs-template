@@ -7,8 +7,10 @@ export const userPublicSelect = {
   name: true,
   email: true,
   isActive: true,
+  isDeleted: true,
   createdAt: true,
   updatedAt: true,
+  deletedAt: true,
 } satisfies Prisma.UserSelect;
 
 const userRepository = {
